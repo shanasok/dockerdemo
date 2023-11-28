@@ -1,5 +1,5 @@
 {
-  "name": "dockertest",
+  "name": "dockerdemo",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

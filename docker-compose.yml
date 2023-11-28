@@ -1,0 +1,9 @@
+version: "3.8"
+
+services:
+  react-app:
+    container_name: dockerdemo-c
+    image: dockerdemo-i
+    build: .
+    ports:
+      - "3001:3000"

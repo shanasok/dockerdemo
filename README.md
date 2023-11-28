@@ -1,3 +1,17 @@
+# Project Purpose
+A tiny demo to show how the minimum amount of configuration necessary to containerize a React project. 
+
+# Running this project in a Docker Container
+To run this project as a containerized app run the following commands on the terminal, in the root folder of the project.
+
+    docker compose build
+    docker compose up
+
+In the terminal type `docker ps` to see the process running, the container is called 'dockerdemo-c' and the
+image is called 'dockerdemo-i'.
+
+In the browser navigate to 'http://localhost:3001' to see the running container.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
