@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const Weather2 = () => {
+const Weather = ({latitude, longitude}) => {
   const [data, setData] = useState(null); // State to store API response
   const [loading, setLoading] = useState(true); // State to track loading state
 
@@ -53,8 +53,8 @@ const Weather2 = () => {
                                            'Content-Type': 'application/json',
                                        },
                                        'params': {
-                                           'lat':process.env.REACT_APP_LAT,
-                                           'lon': process.env.REACT_APP_LON,
+                                           'lat': latitude,
+                                           'lon': longitude,
                                            'appid':process.env.REACT_APP_WEATHER_API_KEY,
                                        },
                                    });
@@ -72,8 +72,7 @@ const Weather2 = () => {
 
     // Call the fetchData function when the component mounts
     fetchData();
-  }, []); // Empty dependency array ensures useEffect runs only once (on mount)
-
+  }, [latitude, longitude]); // Include latitude and longitude in the dependency array
   return (
     <div>
       {loading ? (
@@ -83,7 +82,8 @@ const Weather2 = () => {
           {/* Display your fetched data */}
           {data && (
             <ul>
-             {data['base']}
+              <h3>Weather in {data['name']}:</h3>
+              <li>Description: {data['weather'][0]['description']}</li>
               {renderData(data)}
             </ul>
           )}
@@ -93,4 +93,4 @@ const Weather2 = () => {
   );
 };
 
-export default Weather2;
+export default Weather;

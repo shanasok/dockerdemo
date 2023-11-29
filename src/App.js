@@ -1,14 +1,14 @@
-import logo from './logo.svg';
 import './App.css';
-import Weather from "./Weather";
+import Main from './components/Main';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <p>The Weather in Elizabeth is:</p>
-        <Weather/>
+        <h1>A Little Weather App</h1>
+        <h2>Select a location on the map to see its weather.</h2>
       </header>
+      <Main />
     </div>
   );
 }
