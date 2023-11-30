@@ -1,42 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import WeatherIcon from './components/WeatherIcon';
 
 const Weather = ({latitude, longitude}) => {
   const [data, setData] = useState(null); // State to store API response
   const [loading, setLoading] = useState(true); // State to track loading state
-
-  /*Returns elements to be rendered, according to the structure of the JSON data retrieved.*/
-  const renderData = (obj) => {
-    return Object.entries(obj).map(([key, value]) => {
-      if (typeof value === 'object' && !Array.isArray(value) && value !== null) {
-        // If the value is an object (non-array and non-null), render its contents recursively
-        return (
-          <div key={key}>
-            <h4>{key}</h4>
-            <div style={{ marginLeft: '20px' }}>{renderData(value)}</div>
-          </div>
-        );
-      } else if (Array.isArray(value)) {
-        // If the value is an array, render its elements
-        return (
-          <div key={key}>
-            <h4>{key}</h4>
-            <ul>
-              {renderData(value)}
-
-            </ul>
-          </div>
-        );
-      } else {
-        // Otherwise, render key-value pair
-        return (
-          <div key={key}>
-            <strong>{key}:</strong> {value}
-          </div>
-        );
-      }
-    });
-  };
 
   /*Retrieves data and sets state of 'loading' to trigger a re-render.*/
   useEffect(() => {
@@ -56,6 +24,7 @@ const Weather = ({latitude, longitude}) => {
                                            'lat': latitude,
                                            'lon': longitude,
                                            'appid':process.env.REACT_APP_WEATHER_API_KEY,
+                                           'units':'imperial',
                                        },
                                    });
 
@@ -81,11 +50,20 @@ const Weather = ({latitude, longitude}) => {
         <div>
           {/* Display your fetched data */}
           {data && (
-            <ul>
+            <div>
               <h3>Weather in {data['name']}:</h3>
-              <li>Description: {data['weather'][0]['description']}</li>
-              {renderData(data)}
-            </ul>
+              <p>Description: {data['weather'][0]['description']}</p>
+              <WeatherIcon iconId={data['weather'][0]['icon']} altText={data['weather'][0]['main']}/>
+
+              <p>Temp: {data['main'].temp}</p>
+              <p>Feels Like: {data['main'].feels_like}</p>
+              <p>Min Temp: {data['main'].temp_min}</p>
+              <p>Max Temp: {data['main'].temp_max}</p>
+              <p>Pressure : {data['main'].pressure}</p>
+              <p>Humidity : {data['main'].humidity}</p>
+              <p>Wind Speed : {data['wind'].speed}</p>
+
+            </div>
           )}
         </div>
       )}

@@ -20,7 +20,9 @@ const Main = () => {
     }, []); // Empty dependency array ensures useEffect runs only once (on mount)
 
     return <div className="main">
-               <MapComponent className="left" onMapClick={handleMapClick}/>
+               <div className="left">
+                   <MapComponent onMapClick={handleMapClick}/>
+               </div>
 
                 <div className="right">
                    <Weather latitude={latitude} longitude={longitude}/>

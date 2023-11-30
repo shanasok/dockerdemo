@@ -13,6 +13,14 @@ image is called 'dockerdemo-i'.
 
 In the browser navigate to 'http://localhost:3001' to see the running container.
 
+## Preparing the project
+You will need a .env file with the following variables:
+- REACT_APP_WEATHER_API_KEY=[GET THIS FROM openweathermap.org]
+- REACT_APP_LAT=[LATITUDE OF YOUR DEFAULT LOCATION]
+- REACT_APP_LON=-[LONGITUDE OF YOUR DEFAULT LOCATION]
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
