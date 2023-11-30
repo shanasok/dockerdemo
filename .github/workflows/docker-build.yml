@@ -8,13 +8,14 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 10  # Set a maximum execution time for the job
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Build Docker image
-        run: docker build -t dockerdemo-i .
+      - name: Build Docker image with Dockerfile.prod
+        run: docker build -t dockerdemo-i -f Dockerfile.prod .
 
       - name: Run Docker container
         run: docker run dockerdemo-i
