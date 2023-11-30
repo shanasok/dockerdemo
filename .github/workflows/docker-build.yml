@@ -1,0 +1,20 @@
+name: Docker Build and Run
+
+on:
+  push:
+    branches:
+      - main  # When code is pushed to the branch called 'main', the following jobs will be executed.
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build Docker image
+        run: docker build -t dockerdemo-i .
+
+      - name: Run Docker container
+        run: docker run dockerdemo-i
