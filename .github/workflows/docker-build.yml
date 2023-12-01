@@ -6,7 +6,7 @@ on:
       - main  # When code is pushed to the branch called 'main', the following jobs will be executed.
 
 jobs:
-  build:
+  build-docker-image:
     runs-on: ubuntu-latest
     timeout-minutes: 10  # Set a maximum execution time for the job
 
@@ -28,9 +28,25 @@ jobs:
       # - name: Run Docker container
       #   run: docker run dockerdemo-i
 
+  build-and-deploy-react-for-github-pages:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - name: Install dependencies and build React app
+        run: |
+          npm install
+          npm run build
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.ACTIONS_DEPLOY_ACCESS_TOKEN }}
           publish_dir: ./build
-
