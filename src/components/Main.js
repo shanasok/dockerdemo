@@ -6,6 +6,12 @@ const Main = () => {
     const [latitude, setLatitude] = useState(process.env.REACT_APP_LAT); // State to store latitude
     const [longitude, setLongitude] = useState(process.env.REACT_APP_LON); // State to store longitude
 
+    //Set some default values if no environment variables are found - bit hacky, but useful for Github pages.
+    if (latitude == null)
+        setLatitude(40.661930);
+    if (longitude == null)
+        setLongitude(-74.211647);
+
     const handleMapClick = (clickedLat, clickedLng) => {
         // Do something with the clicked coordinates in App component
         console.log(`Clicked Latitude in App: ${clickedLat}, Clicked Longitude in App: ${clickedLng}`);
