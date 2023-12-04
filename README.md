@@ -15,10 +15,14 @@ In the browser navigate to 'http://localhost:3001' to see the running container.
 
 ## Preparing the project
 You will need a .env file with the following variables:
-- REACT_APP_WEATHER_API_KEY=[GET THIS FROM openweathermap.org]
 - REACT_APP_LAT=[LATITUDE OF YOUR DEFAULT LOCATION]
 - REACT_APP_LON=-[LONGITUDE OF YOUR DEFAULT LOCATION]
 
+## Give Credit Where It's Due
+I used the following open source APIs in this project:
+- http://openweathermap.org
+- https://nominatim.openstreetmap.org
+- https://api.open-meteo.com
 
 
 # Getting Started with Create React App
