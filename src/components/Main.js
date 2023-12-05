@@ -7,16 +7,8 @@ const Main = () => {
     const [latitude, setLatitude] = useState(properties.defaultLatitude); // State to store latitude
     const [longitude, setLongitude] = useState(properties.defaultLongitude); // State to store longitude
 
-    //Set some default values if no environment variables are found - bit hacky, but useful for Github pages.
-    if (latitude == null)
-        setLatitude(40.661930);
-    if (longitude == null)
-        setLongitude(-74.211647);
-
     const handleMapClick = (clickedLat, clickedLng) => {
         // Do something with the clicked coordinates in App component
-        console.log(`Clicked Latitude in App: ${clickedLat}, Clicked Longitude in App: ${clickedLng}`);
-        // You can set state, call other functions, etc.
         setLatitude(clickedLat);
         setLongitude(clickedLng);
     };
@@ -27,7 +19,7 @@ const Main = () => {
     }, []); // Empty dependency array ensures useEffect runs only once (on mount)
 
     return <div className="main">
-               <div className="left">
+               <div className="left" data-testid="left-panel">
                    <MapComponent lat={latitude} long={longitude} onMapClick={handleMapClick}/>
                </div>
 

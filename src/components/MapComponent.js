@@ -7,6 +7,14 @@ import properties from '../properties.json';
 const MapComponent = ({ lat, long, onMapClick }) => {
   const mapRef = useRef(null);
 
+   // Event handler for map click
+    const handleMapClick = (e) => {
+        const clickedLat = e.latlng.lat;
+        const clickedLng = e.latlng.lng;
+        // Call the onMapClick function from props and pass the coordinates
+        onMapClick(clickedLat, clickedLng);
+    };
+
   useEffect(() => {
     // Initialize the map
     const displayLat = lat !== null ? lat : properties.defaultLatitude;
@@ -18,14 +26,6 @@ const MapComponent = ({ lat, long, onMapClick }) => {
       attribution: '© OpenStreetMap contributors'
     }).addTo(map);
 
-    // Event handler for map click
-    const handleMapClick = (e) => {
-        const clickedLat = e.latlng.lat;
-        const clickedLng = e.latlng.lng;
-        // Call the onMapClick function from props and pass the coordinates
-        onMapClick(clickedLat, clickedLng);
-    };
-
     // Add click event listener to the map
     map.on('click', handleMapClick);
 
@@ -36,7 +36,7 @@ const MapComponent = ({ lat, long, onMapClick }) => {
     };
   });
 
-  return <div ref={mapRef} className="mapbox" />;
+  return <div ref={mapRef} data-testid="map-component" className="mapbox"/>;
 };
 
 export default MapComponent;
