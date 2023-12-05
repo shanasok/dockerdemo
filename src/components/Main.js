@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import MapComponent from './MapComponent';
 import Weather from '../Weather';
+import properties from '../properties.json';
 
 const Main = () => {
-    const [latitude, setLatitude] = useState(process.env.REACT_APP_LAT); // State to store latitude
-    const [longitude, setLongitude] = useState(process.env.REACT_APP_LON); // State to store longitude
+    const [latitude, setLatitude] = useState(properties.defaultLatitude); // State to store latitude
+    const [longitude, setLongitude] = useState(properties.defaultLongitude); // State to store longitude
 
     //Set some default values if no environment variables are found - bit hacky, but useful for Github pages.
     if (latitude == null)
