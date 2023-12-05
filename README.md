@@ -2,6 +2,8 @@
 A tiny demo to show how the minimum amount of configuration necessary to containerize a React project. 
 Then replaced the create-react-app front page with data retrieved from api.openweathermap.org.
 
+Visit [https://shanasok.github.io/weatherapp/](https://shanasok.github.io/weatherapp/) to see the project running.
+
 # Running this project in a Docker Container
 To run this project as a containerized app run the following commands on the terminal, in the root folder of the project.
 

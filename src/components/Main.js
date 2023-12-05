@@ -27,7 +27,7 @@ const Main = () => {
 
     return <div className="main">
                <div className="left">
-                   <MapComponent onMapClick={handleMapClick}/>
+                   <MapComponent lat={latitude} long={longitude} onMapClick={handleMapClick}/>
                </div>
 
                 <div className="right">
