@@ -3,50 +3,52 @@ name: Docker Build and Run
 on:
   push:
     branches:
-      - main  # When code is pushed to the branch called 'main', the following jobs will be executed.
+      - main
 
 jobs:
-  build-docker-image:
+  build:
     runs-on: ubuntu-latest
-    timeout-minutes: 10  # Set a maximum execution time for the job
+    timeout-minutes: 10
 
     steps:
-      - name: Check current directory and list contents
-        run: |
-          echo "Current directory: $(pwd)"
-          echo "Contents of the directory:"
-          ls -la
+      - name: Checkout code
+        uses: actions/checkout@v3
 
+      - name: Setup Node.js environment and Cache dependencies
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run unit tests
+        run: npm test
+
+      - name: Build it
+        run: npm run build
+
+  build-docker-image:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Build Docker image with Dockerfile.prod
         run: docker build -t dockerdemo-i -f Dockerfile.prod .
 
-      # Removing this for now as the process never ends and therefore the action never completes, and neither does the build.
-      # I will return to this later, when I have more information.
-      # - name: Run Docker container
-      #   run: docker run dockerdemo-i
-
-  build-and-deploy-react-for-github-pages:
+  deploy-react-for-github-pages:
+    needs: build
     runs-on: ubuntu-latest
+    timeout-minutes: 10
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
-      - name: Setup Node.js environment
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-
-      - name: Install dependencies and build React app
-        run: |
-          npm install
-          npm run build
-
-      - name: Run unit tests
-        run: npm test
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
