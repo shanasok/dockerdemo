@@ -37,26 +37,44 @@ jobs:
             exit 1
           fi
 
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: build-artifacts
+          path: ./build
+
   build-docker-image:
-    needs: build
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    needs: build
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: build-artifacts
+          path: ./build
 
       - name: Build Docker image with Dockerfile.prod
         run: docker build -t dockerdemo-i -f Dockerfile.prod .
 
   deploy-react-for-github-pages:
-    needs: build
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    needs: build-docker-image
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: build-artifacts
+          path: ./build
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
