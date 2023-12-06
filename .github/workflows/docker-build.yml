@@ -29,6 +29,14 @@ jobs:
       - name: Build it
         run: npm run build
 
+      - name: Verify build directory contents
+        run: |
+          ls -la ./build
+          if [ ! -d ./build ] || [ -z "$(ls -A ./build)" ]; then
+            echo "Build directory is empty or does not exist."
+            exit 1
+          fi
+
   build-docker-image:
     needs: build
     runs-on: ubuntu-latest
